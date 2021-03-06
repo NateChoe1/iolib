@@ -1,0 +1,15 @@
+iolib is a very minimal library to capture input events and run parsing on them. I've never made a C library before, and I very rarely use C libraries, so there's a very good chance that this is very very bad. It also only runs on linux, so that's that.
+
+There are 3 functions in the entire library:
+
+parseInputsByPath(char *path, char (*handleInput)(struct input_event))
+
+which takes in a path to an input event file, generates a file descriptor with
+
+int generateFileDescriptor(char *path)
+
+which returns INSUFFICIENT_PRIVILEGE or ALREADY_GRABBED. parseInputsByPath also returns these error values. It then calls
+
+parseInputs(int fd, char (*handleInput)(struct input_event))
+
+which runs the function handleInput(struct input_event) every time an input has been made.
